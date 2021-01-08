@@ -1155,3 +1155,14 @@ footer {
         margin-bottom: 20px;
     }
 }
+
+/* custom */
+
+.cashback-lbl {
+    color: white !important;
+}
+
+.product-min-img {
+    max-height: 390px;
+    object-fit: scale-down;
+}
