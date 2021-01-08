@@ -73,7 +73,7 @@ var fillCategoriesList = function (categories) {
             categoriesLbl.text(item["name"]);
         }
         
-        raw += '">' + item["name"] + ' (' + item["productsCount"] + ')</a>';
+        raw += '">' + item["name"] + '</a>';
     });
 
     let categoriesList = $("#categoriesList");
@@ -130,6 +130,9 @@ var searchProducts = function () {
 }
 
 var fillSearchProductsResults = function (data) {
+    let foundCnt = $("#foundCnt");
+    foundCnt.text("Найдено: " + data["foundCount"]);
+
     let searchBox = $("#currentQuery");
     let query = searchBox.val();
     let isTitleSet = false;
@@ -164,6 +167,34 @@ var fillProductsTable = function () {
 
     fillCategories();
     searchProducts();
+    fillPaginationButtons();
+}
+
+var fillPaginationButtons = async function () {
+    let searchBox = $("#currentQuery");
+    let query = searchBox.val();
+    let categoryIdBox = $("#categoryId");
+    let categoryId = categoryIdBox.val();
+    let pageNumber = $("#currentPage");
+    let currentPage = pageNumber.val();
+
+    let currentPageButton = $("#currentPageButton");
+    currentPageButton.text(currentPage);
+
+    let paginationButtonHome = $("#paginationButtonHome");
+    paginationButtonHome.attr("href", "products.html?p=1&q=" + query + "&p=1&tid=" + categoryId);
+
+    let previousPageNumber = 1;
+    if (currentPage !== "1") {
+        previousPageNumber = parseInt(currentPage, 10) - 1;
+    }
+
+    let paginationButtonPrevious = $("#paginationButtonPrevious");
+    paginationButtonPrevious.attr("href", "products.html?q=" + query + "&p=" + previousPageNumber + "&tid=" + categoryId);
+
+    let nextPageNumber = parseInt(currentPage, 10) + 1;
+    let paginationButtonNext = $("#paginationButtonNext");
+    paginationButtonNext.attr("href", "products.html?q=" + query + "&p=" + nextPageNumber + "&tid=" + categoryId);
 }
 
 /*products.html END*/

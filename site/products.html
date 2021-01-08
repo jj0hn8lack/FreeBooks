@@ -96,6 +96,7 @@
                             </div>
                         </div>
                         <h5 style="margin-bottom:5px;" id="categoriesLbl">Все категории</h5>
+                        <h6 style="margin-top:5px;margin-bottom:5px;" id="foundCnt"></h6>
                     </div>
                 </div>
 
@@ -106,10 +107,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <ul class="pages" id="paginationBox">
-                                <li><a href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                <li><a href="#">1</a></li>
-                                <li class="active"><a href="#">2</a></li>
-                                <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                                <li><a id="paginationButtonPrevious" href="#"><i class="fa fa-angle-double-left"></i></a></li>
+                                <li><a id="paginationButtonHome">1</a></li>
+                                <li class="active"><a id="currentPageButton" href="#">2</a></li>
+                                <li><a id="paginationButtonNext" href="#"><i class="fa fa-angle-double-right"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -131,12 +132,6 @@
                 <div class="modal-body">
                     <div class="list-group" id="categoriesList">
                         <a href="#" class="list-group-item list-group-item-action">
-                            Cras justo odio
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                        <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                        <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                        <a href="#" class="list-group-item list-group-item-action">Vestibulum at eros</a>
                     </div>
                 </div>
                 <div class="modal-footer">
