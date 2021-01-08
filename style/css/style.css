@@ -1187,3 +1187,9 @@ footer {
     background-color: #121212;
     color: #fff;
 }
+
+@media (max-width: 500px) {
+    .modal-content {
+        margin-top: 80px;
+    }
+}
