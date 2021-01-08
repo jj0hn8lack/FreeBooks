@@ -1179,6 +1179,7 @@ footer {
     transition: all 0.3s;
     border: none;
     outline: none;
+    -webkit-appearance: none;
     cursor: pointer;
 }
 
