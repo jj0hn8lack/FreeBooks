@@ -77,7 +77,6 @@ var fillCategoriesList = function (categories) {
     });
 
     let categoriesList = $("#categoriesList");
-    categoriesList.empty();
     categoriesList.append(raw);
 }
 
