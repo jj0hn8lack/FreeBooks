@@ -1167,7 +1167,7 @@ footer {
     object-fit: scale-down;
 }
 
-button.filled-button {
+.filled-button {
     background-color: #f33f3f;
     color: #fff;
     font-size: 14px;
@@ -1182,7 +1182,7 @@ button.filled-button {
     cursor: pointer;
 }
 
-button.filled-button:hover {
+.filled-button:hover {
     background-color: #121212;
     color: #fff;
 }
