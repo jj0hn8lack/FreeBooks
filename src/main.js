@@ -1,14 +1,16 @@
 ﻿const apiDomain = "https://ufostore.herokuapp.com/";
+const apiDomainBackup = "https://ufoback.herokuapp.com/";
 const booksBaseCategoryId = 121;
 
 /* global START */
 
 var generateProductPreviewCard = function (item) {
+    let detailUrl = 'product-details.html?id=' + item["article"] + '&name=' + encodeURI(item["name"]).replaceAll('/', '');
     let raw = '<div class="col-md-4"><div class="product-item">';
-    raw += '<a href="product-details.html"><img loading="lazy" src="' + item["imgUrl"] + '" class="img-fluid product-min-img" alt="' + item["name"] + '"></a>';
+    raw += '<a href="' + detailUrl + '"><img loading="lazy" src="' + item["imgUrl"] + '" class="img-fluid product-min-img" alt="' + item["name"] + '"></a>';
     raw += '<div class="down-content">';
 
-    raw += '<a href="product-details.html"><h4>' + item["name"] + '</h4></a>';
+    raw += '<a href="' + detailUrl + '"><h4>' + item["name"] + '</h4></a>';
 
     if (item["isAvailable"]) {
         raw += '<h6>' + item["price"] + '₽';
@@ -228,3 +230,104 @@ var fillPaginationButtons = async function () {
 }
 
 /*products.html END*/
+
+/*product-details.html START*/
+
+var getProductPreview = function () {
+    const url = new URL(window.location.href);
+    let pathArr = url.pathname.split('/', 4);
+    let id = null;
+    let name = null;
+    if (pathArr[1].toLowerCase() === 'preview') {
+        switch (pathArr.length) {
+            case 3:
+                id = pathArr[2];
+                name = "";
+                break;
+            case 4:
+                id = pathArr[2];
+                name = decodeURI(pathArr[3]);
+                break;
+            default:
+                id = "1";
+                name = "";
+        }
+    }
+    else {
+        id = url.searchParams.get('id');
+        name = url.searchParams.get('name');
+    }
+
+    let searchHiddenBox = $("#currentQuery");
+    searchHiddenBox.val(name);
+    let productRequset = apiDomainBackup + "main/GetProduct?article=" + id + "&name=" + name;
+    // $('head').append('<link rel="canonical" href="https://ufostore.netlify.app/preview/' + id + '/' + name + '" />');
+    $.getJSON(productRequset, fillProduct);
+}
+
+var fillProduct = function (data) {
+    document.title = "Купить: " + data["name"] + " выгодно! (" + data["price"] + "р.)" + " Производиель: " + data["vendor"];
+
+    let categoryBox = $("#categoryBox");
+    categoryBox.attr('href', '/products.html?tid=' + data["categoryId"]);
+    categoryBox.text(data["categoryName"]);
+
+    let descriptionBox = $("#descriptionBox");
+    if (data["description"].length === 0) {
+        descriptionBox.html("Магазин не предоставил описания."
+            + "Вы можете посмотреть полное опиание продукта на сайте магазина, для этого нажмите "
+            + "<a href=\"" + data["referalLink"] + "\">сюда</a>.");
+
+        $('head').append('<meta name="description" content="' + data["name"] + ' Выгодное предложение от Free Books!">');
+    }
+    else {
+        descriptionBox.html(data["description"]);
+        $('head').append('<meta name="description" content="' + data["description"] + '">');
+    }
+
+    let productCostBox = $("#productCost");
+    let raw = '';
+    if (data["isAvailable"]) {
+        raw += '<strong class="text-primary">' + data["price"] + '₽</strong>';
+        if (data["charge"] !== "0") {
+            raw += '&nbsp;<small style="font-weight: 500;" class="cashback-lbl badge badge-pill badge-success"> Вернём: ' + data["charge"] + '₽</small>';
+        }
+    }
+    else {
+        raw += '<strong class="text-primary">Нет в наличии</strong>';
+    }
+    productCostBox.append(raw);
+
+    let nameBox = $("#nameBox");
+    nameBox.text(data["name"]);
+
+    let imgBox = document.getElementById("imgBox");
+    imgBox.onerror = function () {
+        imgBox.onerror = null;
+        imgBox.src = data["originalImgUrl"];
+    };
+
+    imgBox.alt = data["name"];
+    imgBox.src = data["originalImgUrl"];
+
+    let buyBtn = document.getElementById("buyBtn");
+    buyBtn.href = data["referalLink"];
+    buyBtn.innerText = 'Куить на ' + data["partnerName"];
+
+    let searchRequset = apiDomain + "main/GetWithSubTid?c=6&tid=" + data["categoryId"] + "&query=" + data["name"] + '&p=1';
+    $.getJSON(searchRequset, fillSuggestedProducts);
+}
+
+var fillSuggestedProducts = function (data) {
+
+    let products = data["products"];
+
+    let raw = '';
+    products.forEach(function (item, _) {
+        raw += generateProductPreviewCard(item);
+    });
+    let productsBox = $("#productsBox");
+    productsBox.append(raw);
+}
+
+/*product-details.html END*/
