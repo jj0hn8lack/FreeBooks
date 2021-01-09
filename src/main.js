@@ -38,6 +38,39 @@ var generateProductPreviewCard = function (item) {
 
 /*index.html START*/
 
+var fillIndexCoupons = function () {
+    let searchRequset = apiDomain + "stocks/Category?categoryId=" + booksBaseCategoryId;
+    $.getJSON(searchRequset, generateIndexCoupons);
+}
+
+var generateCouponIndexCard = function (coupon) {
+    let code = coupon["code"] ? coupon["code"] : 'Не требуется';
+    let activateLink = coupon["url"];//.replace('http://xf.gdeslon.ru/ck', '/coupon')
+    let raw = '<div class="col-lg-4 col-md-6"><div class="service-item">';
+    raw += '<a href="' + activateLink + '" class="services-item-image"><img src="../style/images/coupon-img.jpg" class="img-fluid" alt=""></a>';
+    raw += '<div class="down-content"><hr /><h5>' + coupon["merchantName"] + '</h5>';
+    raw += '<h4><a href="' + activateLink + '">' + coupon["name"] + '</a></h4>';
+    raw += '<p style="margin: 0;">' + coupon["startDateTime"] + ' &mdash; ' + coupon["finishDateTime"] + '</p>';
+    raw += '<h6>Код: ' + code + '</h6><hr />';
+    raw += '<a href="' + activateLink + '" class="filled-button">Активировать</a>';
+    raw += '</div></div></div>';
+
+
+    return raw;
+}
+
+var generateIndexCoupons = function (data) {
+    let coupons = data["coupons"];
+    const couponsOnIndexPage = 3;
+    coupons = coupons.slice(0, couponsOnIndexPage);
+    let raw = '';
+    coupons.forEach(function (item, _) {
+        raw += generateCouponIndexCard(item);
+    });
+    let couponsIndexBox = $("#couponsIndexBox");
+    couponsIndexBox.append(raw);
+}
+
 var fillLatestProducts = function () {
     let searchRequset = apiDomain + "main/GetWithSubTid?c=6&tid=" + booksBaseCategoryId;
     $.getJSON(searchRequset, generateLatestProducts);
