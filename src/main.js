@@ -54,8 +54,6 @@ var generateCouponIndexCard = function (coupon) {
     raw += '<h6>Код: ' + code + '</h6><hr />';
     raw += '<a href="' + activateLink + '" class="filled-button">Активировать</a>';
     raw += '</div></div></div>';
-
-
     return raw;
 }
 

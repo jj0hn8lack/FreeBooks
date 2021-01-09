@@ -11,7 +11,7 @@
     <!--<link rel="icon" href="../style/images/favicon.ico">-->
     <link href="../style/fonts/fonts.css" rel="stylesheet">
 
-    <title>Free Books</title>
+    <title>Купоны и акции - Free Books </title>
 
     <!-- Bootstrap core CSS -->
     <link href="../style/css/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -50,8 +50,8 @@
                             </a>
                         </li>
 
-                        <li class="nav-item active"><a class="nav-link" href="products.html">Книги <span class="sr-only">(current)</span></a></li>
-                        <li class="nav-item"><a class="nav-link" href="coupons.html">Акции</a></li>
+                        <li class="nav-item"><a class="nav-link" href="products.html">Книги </a></li>
+                        <li class="nav-item active"><a class="nav-link" href="coupons.html">Акции <span class="sr-only">(current)</span></a></li>
 
                         <li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
                     </ul>
@@ -66,8 +66,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="text-content">
-                        <h4>У нас самые выгодные условия</h4>
-                        <h2>Книги</h2>
+                        <h4>С купонами дешевле</h4>
+                        <h2>Купоны и акции</h2>
                     </div>
                 </div>
             </div>
@@ -78,54 +78,25 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="section-heading">
-                        <div class="form-group">
-                            <h5>Поиск товара</h5>
-                        </div>
-                        <div class="input-group mb-3">
-                            <input id="searchBox" type="text" class="form-control" placeholder="Поиск" aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button onclick="searchButtonClicked()" class="filled-button" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
-                                <button class="filled-button" data-toggle="modal" data-target="#categoriesModal" type="button">Категории</button>
-                            </div>
-                        </div>
-                        <h5 style="margin-bottom:5px;" id="categoriesLbl">Все категории</h5>
-                        <h6 style="margin-top:5px;margin-bottom:5px;" id="foundCnt"></h6>
-                    </div>
-                </div>
+                    <div class="row" id="couponsBox">
 
-                <div class="col-md-12">
-                    <div class="row" id="productsBox">
-
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <ul class="pages" id="paginationBox">
-                                <li><a id="paginationButtonPrevious" href="#"><i class="fa fa-angle-double-left"></i></a></li>
-                                <li><a id="paginationButtonHome">1</a></li>
-                                <li class="active"><a id="currentPageButton" href="#">2</a></li>
-                                <li><a id="paginationButtonNext" href="#"><i class="fa fa-angle-double-right"></i></a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal Categories -->
-    <div class="modal fade" id="categoriesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Modal More Info -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Категории</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Условия акции</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="list-group" id="categoriesList">
-                    </div>
+                    <p></p>
                 </div>
                 <div class="modal-footer">
                 </div>
@@ -157,18 +128,17 @@
     <!-- Additional Scripts -->
     <script src="../src/custom.js"></script>
     <script src="../src/owl.js"></script>
-    <script src="../src/main.js"></script>
+    <script src="../src/coupons.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
-
-            fillProductsTable();
-
-            $("#searchBox").keyup(function (event) {
-                if (event.keyCode === 13) {
-                    searchButtonClicked();
-                }
-            });
+            $('#exampleModal').on('show.bs.modal', function (event) {
+                let button = $(event.relatedTarget);
+                let recipient = button.data('description');
+                let modal = $(this);
+                modal.find('.modal-body p').text(recipient);
+            })
+            fillCouponsTable();
         });
     </script>
 </body>
