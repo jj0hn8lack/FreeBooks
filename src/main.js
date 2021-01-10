@@ -5,7 +5,7 @@ const booksBaseCategoryId = 121;
 /* global START */
 
 var generateProductPreviewCard = function (item) {
-    let detailUrl = 'product-details.html?id=' + item["article"] + '&name=' + encodeURI(item["name"]).replaceAll('/', '');
+    let detailUrl = '/preview/' + item["article"] + '/' + encodeURI(item["name"]).replaceAll('/', '');
     let raw = '<div class="col-md-4"><div class="product-item">';
     raw += '<a href="' + detailUrl + '"><img loading="lazy" src="' + item["imgUrl"] + '" class="img-fluid product-min-img" alt="' + item["name"] + '"></a>';
     raw += '<div class="down-content">';
