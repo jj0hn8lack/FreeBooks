@@ -30,7 +30,7 @@ var generateProductPreviewCard = function (item) {
         raw += '<p>К сожалению партнёр не предоставил нам описания продукта. Попробуйте посмотреть на сайте партнёра (кнопка "купить").</p>';
     }
 
-    raw += '<a href="' + item["referalLink"].replace('https://af.gdeslon.ru/cc/','../buy/') + '" class="btn btn-primary btn-block">Купить на ' + item["partnerName"] + '</a>';
+    raw += '<a href="' + item["referalLink"].replace('https://af.gdeslon.ru/cc/','/buy/') + '" class="btn btn-primary btn-block">Купить на ' + item["partnerName"] + '</a>';
 
     raw += '</div></div></div>';
     return raw;
@@ -276,7 +276,7 @@ var fillProduct = function (data) {
     if (data["description"].length === 0) {
         descriptionBox.html("Магазин не предоставил описания."
             + "Вы можете посмотреть полное опиание продукта на сайте магазина, для этого нажмите "
-            + "<a href=\"" + data["referalLink"].replace('https://af.gdeslon.ru/cc/', '../buy/') + "\">сюда</a>.");
+            + "<a href=\"" + data["referalLink"].replace('https://af.gdeslon.ru/cc/', '/buy/') + "\">сюда</a>.");
 
         $('head').append('<meta name="description" content="' + data["name"] + ' Выгодное предложение от Free Books!">');
     }
@@ -311,7 +311,7 @@ var fillProduct = function (data) {
     imgBox.src = data["originalImgUrl"];
 
     let buyBtn = document.getElementById("buyBtn");
-    buyBtn.href = data["referalLink"].replace('https://af.gdeslon.ru/cc/', '../buy/');
+    buyBtn.href = data["referalLink"].replace('https://af.gdeslon.ru/cc/', '/buy/');
     buyBtn.innerText = 'Куить на ' + data["partnerName"];
 
     let searchRequset = apiDomain + "main/GetWithSubTid?c=6&tid=" + data["categoryId"] + "&query=" + data["name"] + '&p=1';
