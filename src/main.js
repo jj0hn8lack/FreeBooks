@@ -47,7 +47,7 @@ var fillIndexCoupons = function () {
 
 var generateCouponIndexCard = function (coupon) {
     let code = coupon["code"] ? coupon["code"] : 'Не требуется';
-    let activateLink = coupon["url"];//.replace('http://xf.gdeslon.ru/ck', '/coupon')
+    let activateLink = coupon["url"].replace('http://xf.gdeslon.ru/ck', '/coupon');
     let raw = '<div class="col-lg-4 col-md-6"><div class="service-item">';
     raw += '<a href="' + activateLink + '" class="services-item-image"><img src="../style/images/coupon-img.jpg" class="img-fluid" alt=""></a>';
     raw += '<div class="down-content"><hr /><h5>' + coupon["merchantName"] + '</h5>';

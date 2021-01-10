@@ -3,7 +3,7 @@ const booksBaseCategoryId = 121;
 
 var generateCouponCard = function (coupon) {
     let code = coupon["code"] ? coupon["code"] : 'Не требуется';
-    let activateLink = coupon["url"];//.replace('http://xf.gdeslon.ru/ck', '/coupon')
+    let activateLink = coupon["url"].replace('http://xf.gdeslon.ru/ck', '/coupon');
 
     let raw = '<div class="col-md-4"><div class="product-item"><div class="down-content"><hr />';
     raw += '<div class="coupon-title"><h5>' + coupon["merchantName"] + '</h5></div><hr />';
